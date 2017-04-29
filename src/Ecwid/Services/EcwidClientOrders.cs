@@ -227,6 +227,21 @@ namespace Ecwid
             return orders.Count == 0 ? null : orders.FirstOrDefault();
         }
 
+        /// <summary>
+        /// Update one order asynchronously.
+        /// </summary>
+        /// <param name="order">The order to update.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        public async Task<UpdateStatus> UpdateOrderAsync(OrderEntry order, CancellationToken cancellationToken)
+            => await PutApiAsync<UpdateStatus>(GetUrl(String.Format("orders/{0}", order.OrderNumber)), order, cancellationToken);
+
+        /// <summary>
+        /// Update one order asynchronously.
+        /// </summary>
+        /// <param name="order">The order to update.</param>
+        public async Task<UpdateStatus> UpdateOrderAsync(OrderEntry order)
+            => await UpdateOrderAsync(order, CancellationToken.None);
+
         #endregion
     }
 }
